@@ -9,7 +9,7 @@ import joblib
 import jieba
 
 def stopwordslist():  
-    stopwords = [line.strip() for line in open('E:/bylw/分类/HGD_StopWords.txt', encoding='utf-8').readlines()]
+    stopwords = [line.strip() for line in open('./HGD_StopWords.txt', encoding='utf-8').readlines()]
     return stopwords
 stopwords=stopwordslist()
 
@@ -26,7 +26,7 @@ def seg_depart(sentence):
     return outstr
 
 
-train_data=pd.read_excel('E:/bylw/分类/new/trainset.xlsx')
+train_data=pd.read_excel('./trainset.xlsx')
 train_data=shuffle(train_data)
 train_data['文本']=train_data.文本.apply(lambda x:seg_depart(str(x)))
 
@@ -53,7 +53,7 @@ cvscores_dtc = cross_val_score(DTC, trainx_tfvec,trainy, cv=5)
 print("未调参的决策树训练集交叉评分：",cvscores_dtc)
 print("未调参的随机森林训练集评交叉分：",cvscores_rfc)
 
-test_data=pd.read_excel('E:/bylw/分类/new/testset.xlsx')
+test_data=pd.read_excel('./testset.xlsx')
 test_data=shuffle(test_data)
 test_data['文本']=test_data.文本.apply(lambda x:seg_depart(str(x)))
 testx=test_data['文本']
